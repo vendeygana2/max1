@@ -3,54 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marco con Botón de Cierre</title>
+    <title>Formulario</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
-            background-color: #e7318;
+            overflow: hidden; /* Evita el desplazamiento no deseado */
         }
-
-        .frame {
+        .container {
+            background-color: #fff;
             position: relative;
             width: 100%;
-            height: 100%;
-            background-color: white;
-            border: 2px solid #e7318;
-            border-radius: 10px;
-            overflow: hidden;
-            box-sizing: border-box;
+            height: 100vh; /* Ocupa toda la altura de la pantalla */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-
-        .close-button {
+        .close-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 30px;
-            height: 30px;
-            background-color: black;
+            background-color: #ff5f5f;
             border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
+            color: #fff;
+            padding: 10px 15px;
             cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000; /* Asegura que el botón esté por encima del iframe */
         }
-
-        .iframe-container {
+        iframe {
+            width: 100%;
+            height: 100%; /* Ocupa toda la altura disponible */
+            border: none; /* Elimina el borde del iframe */
+        }
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0; /* Sin bordes redondeados en móviles */
+            }
+            .modal-content {
+                width: 90%; /* Ajustar el ancho para pantallas más pequeñas */
+                padding: 20px; /* Ajustar el padding para pantallas más pequeñas */
+                font-size: 16px; /* Ajustar el tamaño de la letra para pantallas más pequeñas */
+            }
+            .modal-content .logo-panaxtreaming,
+            .modal-content .logo-flujo {
+                width: 150px; /* Ajustar el tamaño de los logos para pantallas más pequeñas */
+            }
+            .modal-content .gif {
+                width: 80px; /* Ajustar el tamaño del GIF para pantallas más pequeñas */
+            }
+            .modal-content button {
+                padding: 10px 20px; /* Ajustar el padding de los botones para pantallas más pequeñas */
+                font-size: 14px; /* Ajustar el tamaño de la letra de los botones para pantallas más pequeñas */
+            }
+        }
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo negro con opacidad */
+            text-align: center; /* Centrar el contenido */
+        }
+        .modal-content {
+            background-color: #333;
+            margin: 10% auto;
+            padding: 30px;
+            border: 5px solid #a9ff00; /* Marco verde */
+            width: 50%;
+            text-align: center;
+            border-radius: 10px;
+            color: white; /* Color del texto */
+            font-size: 18px; /* Aumentar el tamaño de la letra */
+            position: relative;
+        }
+        .modal-content .logo-panaxtreaming,
+        .modal-content .logo-flujo {
+            width: 180px; /* Tamaño del logo de Panaxtreaming */
+            height: auto;
+            margin: 20px 10px; /* Espacio alrededor de los logos */
+            animation: blink 2s infinite; /* Animación de parpadeo */
+        }
+        .modal-content .gif {
+            width: 100px; /* Tamaño del GIF */
+            height: auto;
+            margin: 20px 10px;
+        }
+        .modal-content button {
+            background-color: #a9ff00; /* Color del marco verde */
+            color: black; /* Letras negras */
             border: none;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .modal-content .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 16px;
+            z-index: 3;
+        }
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Permitir que los elementos se envuelvan en varias líneas */
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0.5;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="frame">
-        <button class="close-button" onclick="window.location.href='https://www.vendeygana.net/user/'">X</button>
-        <iframe class="iframe-container" src="https://www.fluidforms.co/embed/form?id=679ab419bf37cd2cddc34330"></iframe>
+    <div class="container">
+        <button class="close-btn" onclick="mostrarModal()">X</button>
+        <iframe src="https://vendeygana2.github.io/max1/" id="mainIframe"></iframe>
     </div>
+
+    <div id="miModal" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="window.location.href='https://www.vendeygana.net/user/'">X</button>
+            <div class="content-wrapper">
+                <img class="logo-panaxtreaming" src="https://dhgf5mcbrms62.cloudfront.net/110979006/header-fcHJMd/IVsTzWZ-200x200.webp" alt="Logo Panaxtreaming">
+                <img class="gif" src="https://i.gifer.com/DCCl.gif" alt="GIF animado">
+                <img class="logo-flujo" src="https://flujotval.com/wp-content/uploads/2024/12/LOGO-TAMANO-300-1.png" alt="Logo FlujoTV">
+            </div>
+            <p>Si quieres disfrutar sin complicaciones de problemas como CONTRASEÑA INCORRECTA Y LA DIFICULTAD DE INICIAR SESION DE NETFLIX y otras aplicaciones, adquiere Panaxtreaming o Flujo TV.</p>
+            <p>Panaxtreaming es orgullosamente venezolana hecha por venezolanos y, como Flujo TV, te ofrecen:</p>
+            <p>TV EN VIVO con más de 800 canales: Deportes (TODOS LOS ESPN, FOXSPORT y DIRECTV SPORTS), Noticias, Infantiles, música y un catálogo de más de 9,000 películas y series estrenos de las principales plataformas como Netflix, Amazon Prime, Disney Plus, Max, Crunchyroll, Apple TV.</p>
+            <button onclick="window.location.href='https://vendeygana2.github.io/comprapanaxtreaming/'">Comprar Panaxtreaming</button>
+            <button onclick="window.location.href='https://vendeygana2.github.io/compraflujotv/'">Comprar Flujo TV</button>
+        </div>
+    </div>
+
+    <script>
+        function mostrarModal() {
+            var modal = document.getElementById('miModal');
+            modal.style.display = "block";
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('miModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
